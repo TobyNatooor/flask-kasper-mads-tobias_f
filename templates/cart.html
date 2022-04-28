@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="shortcut icon" href="../static/images/trainIcon.png" type="image/x-icon">
+    <title>Cart</title>
+</head>
+
+<body>
+    <div id="navbar">
+        <a href="./">
+            <h1>
+                <img src="../static/images/susDot.png" alt="sussy wussy">
+            </h1>
+        </a>
+        <h1>
+            {% if session["username"] %}
+            Hi {{ session["username"] }}
+            {% endif %}
+        </h1>
+        <div>
+            <a href="./cart" id="cartcart"> <img src="../static/images/shopping-cart.png" alt="cart">
+                <div id="notification">{{ session["numberOfItems"] }}</div>
+            </a>
+        </div>
+        <a href="./login"> <img src="../static/images/user.png" alt="login"> </a>
+    </div>
+
+
+    <div class="content">
+        <h2>Indkøbskurv</h2>
+
+        <div class="payment-details">
+            <h2>Betalingsdetaljer</h2>
+            <ul id="payment-list">
+                {% for cartTrain in cartTrainData %}
+                    <li>{{ cartTrain.name }}: {{ cartTrain.price }} kr.</li>
+                {% endfor %}
+                <br>
+                <li>Total price: {{ trainPriceSum }} kr.</li>
+            </ul>
+            <button id="payment-button">Gå til betaling</button>
+        </div>
+
+        <div class="cart-items">
+            <div>
+                {% for cartTrain in cartTrainData %}
+                    <img src={{ "../static/images/trains/" + cartTrain.image }} alt={{ cartTrain.image }} width="200">    
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <button id="test"></button>
+    <footer>
+        <h1>DAT</h1>
+        <br>
+        <p>Kontakt os: email: support@DAT.dk, tlf:24240012</p>
+        <a href="https://www.youtube.com/watch?v=yPYZpwSpKmA&ab_channel=RickAstley">facebook</a>
+    </footer>
+</body>
+
+</html>

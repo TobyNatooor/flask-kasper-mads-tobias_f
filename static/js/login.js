@@ -1,0 +1,36 @@
+
+document.querySelector('#login-header').addEventListener('click', () => {
+    document.querySelector('#register-form').style.display = "none"
+    document.querySelector('#login-form').style.display = "grid"
+    document.querySelector('#login-header').style.zIndex = "2"
+    document.querySelector('#register-header').style.zIndex = "1"
+    document.querySelector('.login-grid').style.backgroundColor = "#132184"
+    document.querySelector('#login-header').style.borderLeft = "black solid 2px"
+    document.querySelector('#login-header').style.borderTop = "black solid 2px"
+    document.querySelector('#login-header').style.borderRight = "black solid 2px"
+    document.querySelector('#register-header').style.borderLeft = "blck solid 0px"
+    document.querySelector('#register-header').style.borderTop = "black solid 0px"
+    document.querySelector('#register-header').style.borderRight = "black solid 0px"
+    document.querySelector('#register-header').style.boxShadow = "none"
+    document.querySelector('#register-header').style.MoxBoxShadow = "none"
+    document.querySelector('#login-header').style.boxShadow = "3px -4px 3px rgba(50, 50, 50, 0.75)"
+    document.querySelector('#login-header').style.MoxBoxShadow = "0px -4px 3px rgba(50, 50, 50, 0.75)"
+})
+
+document.querySelector('#register-header').addEventListener('click', () => {
+    document.querySelector('#register-form').style.display = "grid"
+    document.querySelector('#login-header').style.zIndex = "1"
+    document.querySelector('#register-header').style.zIndex = "2"
+    document.querySelector('.login-grid').style.backgroundColor = "#798ffd"
+    document.querySelector('#login-form').style.display = "none"
+    document.querySelector('#login-header').style.borderLeft = "grey solid 0px"
+    document.querySelector('#login-header').style.borderTop = "grey solid 0px"
+    document.querySelector('#login-header').style.borderRight = "grey solid 0px"
+    document.querySelector('#register-header').style.borderLeft = "black solid 2px"
+    document.querySelector('#register-header').style.borderTop = "black solid 2px"
+    document.querySelector('#register-header').style.borderRight = "black solid 2px"
+    document.querySelector('#register-header').style.boxShadow = "3px -4px 3px rgba(50, 50, 50, 0.75)"
+    document.querySelector('#register-header').style.MoxBoxShadow = " 0px -4px 3px rgba(50, 50, 50, 0.75)"
+    document.querySelector('#login-header').style.boxShadow = "none"
+    document.querySelector('#login-header').style.MoxBoxShadow = "none"
+})

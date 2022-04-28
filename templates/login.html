@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="shortcut icon" href="../static/images/trainIcon.png" type="image/x-icon">
+    <script src="../static/js/login.js" defer></script>
+    <title>login</title>
+</head>
+
+<body>
+    <div id="navbar">
+        <a href="./">
+            <h1>
+                <img src="../static/images/susDot.png" alt="sussy wussy">
+            </h1>
+        </a>
+        <h1>
+            {% if session["username"] %}
+            Hi {{ session["username"] }}
+            {% endif %}
+        </h1>
+        <div>
+            <a href="./cart" id="cartcart"> <img src="../static/images/shopping-cart.png" alt="cart">
+                <div id="notification">{{ session["numberOfItems"] }}</div>
+            </a>
+        </div>
+        <a href="./login"> <img src="../static/images/user.png" alt="login"> </a>
+    </div>
+
+    <div class="content">
+        <div class="login-boks">
+            <div class="login-and-register-headers">
+                <h2 id="login-header">Login</h2>
+                <h2 id="register-header">Register</h2>
+            </div>
+            <div class="login-grid">
+                <form id="register-form" action="/register-form" method="POST">
+                    <label for="name">Navn: </label>
+                    <input type="text" name="username">
+                    <label for="tlf">Telefon Nr. </label>
+                    <input type="text" name="tlf">
+                    <label for="email">E-mail </label>
+                    <input type="text" name="email">
+                    <label for="password">Password: </label>
+                    <input type="password" name="password">
+                    <input type="submit" value="Registrer">
+                </form>
+                <form id="login-form" action="/login-form" method="post">
+                    <label for="name">Navn: </label>
+                    <input type="text" name="username">
+                    <label for="password">Password: </label>
+                    <input type="password" name="password">
+                    <input type="submit" value="Login">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <h1>DAT</h1>
+        <br>
+        <p>Kontakt os: email: support@DAT.dk, tlf:24240012</p>
+        <a href="https://www.youtube.com/watch?v=yPYZpwSpKmA&ab_channel=RickAstley">facebook</a>
+    </footer>
+</body>
+
+</html>
