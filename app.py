@@ -1,15 +1,4 @@
-#import programs
-
-import subprocess
-import sys
-
-def install(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-install("flask")
-
-#import programs
-
+#imports
 from flask import Flask, render_template, request, redirect, url_for, session
 import sql
 
