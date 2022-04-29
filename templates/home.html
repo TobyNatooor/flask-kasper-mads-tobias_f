@@ -7,11 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/style.css">
     <link rel="shortcut icon" href="../static/images/trainIcon.png" type="image/x-icon">
-    <script src="../static/js/scroll.js" defer></script>
+    <script src="../static/js/searchBar.js" defer></script>
     <title>Home</title>
 </head>
 
 <body>
+
     <div id="navbar">
         <a href="./">
             <h1>
@@ -23,6 +24,10 @@
             Hi {{ session["username"] }}
             {% endif %}
         </h1>
+
+        <img src="../static/images/searchIcon.png" alt="">
+        <input type="text" id="search-bar">
+
         <div>
             <a href="./cart" id="cartcart"> <img src="../static/images/shopping-cart.png" alt="cart">
                 <div id="notification">{{ session["numberOfItems"] }}</div>
@@ -33,10 +38,9 @@
 
     <div class="content">
         <h2>Home</h2>
-
         <div class="train-frames">
             {% for train in trainData %}
-            <form action="./buy-form" method="post" class="train-frame">
+            <form action="./buy-form" method="post" class="train-frame" id={{ train.name }}>
                 <h4>{{ train.name }}</h4>
                 <img id="train-image" src={{ "../static/images/trains/" + train.imagePath }} alt={{ train.imagePath }}>
                 <input type="hidden" name="trainID" value={{ train.ID }}>
