@@ -7,7 +7,6 @@
 }
 
 #navbar {
-    position: absolute;
     width: 100%;
     height: var(--navbar-height);
     background-color: #132184;
@@ -34,12 +33,10 @@
     padding-top: 1rem;
     background-color: #EAE9E8;
     top: 20.5rem;
-    position: absolute;
     width: 100%;
     display: inline-block;
     margin: 0 auto;
     padding-bottom: 5rem;
-    height: 15cm;
 }
 
 a {
@@ -294,11 +291,8 @@ body {
 footer {
     background-color: #132184;
     height: 100px;
-    bottom: -8cm;
     width: 100%;
-    position: absolute;
     color: white;
-    margin-top: 7rem;
 }
 
 a {
