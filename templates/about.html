@@ -1,3 +1,5 @@
+{% from "_components.html" import navbar, footer %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,30 +13,11 @@
 </head>
 
 <body>
-    <div id="navbar">
-        <a href="./">
-            <h1>
-                <img src="../static/images/susDot.png" alt="sussy wussy">
-            </h1>
-        </a>
-        <h1>
-            {% if session["username"] %}
-            Hi {{ session["username"] }}
-            {% endif %}
-        </h1>
-        <div>
-            <a href="./cart" id="cartcart"> <img src="../static/images/shopping-cart.png" alt="cart">
-                <div id="notification">{{ session["numberOfItems"] }}</div>
-            </a>
-        </div>
-        <!-- <div id="notifibox"></div> -->
-        <a href="./login"> <img src="../static/images/user.png" alt="login"> </a>
-    </div>
-
+    {{ navbar() }}
     <div class="content">
         <h2>About</h2>
     </div>
-
+    {{ footer() }}
 </body>
 
 </html>

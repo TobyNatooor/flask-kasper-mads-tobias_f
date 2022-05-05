@@ -1,6 +1,7 @@
+{% from "_components.html" import navbar, footer %}
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,32 +11,8 @@
     <script src="../static/js/searchBar.js" defer></script>
     <title>Home</title>
 </head>
-
 <body>
-
-    <div id="navbar">
-        <a href="./">
-            <h1>
-                <img src="../static/images/susDot.png" alt="sussy wussy">
-            </h1>
-        </a>
-        <h1>
-            {% if session["username"] %}
-            Hi {{ session["username"] }}
-            {% endif %}
-        </h1>
-
-        <img src="../static/images/searchIcon.png" alt="">
-        <input type="text" id="search-bar">
-
-        <div>
-            <a href="./cart" id="cartcart"> <img src="../static/images/shopping-cart.png" alt="cart">
-                <div id="notification">{{ session["numberOfItems"] }}</div>
-            </a>
-        </div>
-        <a href="./login"> <img src="../static/images/user.png" alt="login"> </a>
-    </div>
-
+    {{ navbar() }}
     <div class="content">
         <h2>Home</h2>
         <div class="train-frames">
@@ -46,17 +23,13 @@
                 <input type="hidden" name="trainID" value={{ train.ID }}>
                 <input type="hidden" name="scrolledY" value="0" class="scrolledY">
                 <input type="submit" value="Køb" id="buy-button">
+                <a href={{ "./reviews?trainType=" + train.name }}><input type="button" value="reviews"
+                        class="review-button"></a>
             </form>
             {% endfor %}
         </div>
     </div>
-
-    <footer>
-        <h1>DAT</h1>
-        <br>
-        <p>Kontakt os: email: support@DAT.dk, tlf:24240012</p>
-        <a href="https://www.youtube.com/watch?v=yPYZpwSpKmA&ab_channel=RickAstley">facebook</a>
-    </footer>
+    {{ footer() }}
 </body>
 
 </html>
