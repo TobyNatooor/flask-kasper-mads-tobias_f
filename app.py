@@ -64,8 +64,7 @@ def buyForm():
 @app.route('/')
 def home():
     session["numberOfItems"] = len(Sql.getCart())
-    trainData = Sql.GetTrainData()
-    return render_template('home.html', trainData=trainData)
+    return render_template('home.html', trainData=Sql.GetTrainData())
 @app.route('/login')
 def login():
     return render_template('login.html', methods=["Get", "POST"])
@@ -86,6 +85,12 @@ def cart():
     for trainData in cartTrainData:
         trainPriceSum += trainData["price"]
     return render_template('cart.html', cartTrainData = cartTrainData, trainPriceSum = trainPriceSum)
+@app.route('/reviews')
+def reviews():
+    trainType = request.args.get('trainType')
+    print(trainType)
+    return render_template('home.html', trainData=Sql.GetTrainData())
+
 
 if __name__ == '__main__':
     app.run()
