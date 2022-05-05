@@ -12,8 +12,6 @@ class SqlClass:
 
     def registerUser(self, username, tlf, email, password):
         connect = sqlite3.connect(self.databasePath)
-
-
         salt = os.urandom(32)
         password_enc = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
         print(salt)
@@ -33,7 +31,6 @@ class SqlClass:
         print(new_key)
         connect.commit()
         connect.close()
-        
         if password == new_key:
             return True
         else: 

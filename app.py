@@ -1,4 +1,4 @@
-#imports
+# imports
 from flask import Flask, render_template, request, redirect, url_for, session
 import sql
 
@@ -8,6 +8,8 @@ app = Flask(__name__)
 app.secret_key = 'SECRET_KEY'
 
 # Endpoints
+
+
 @app.route('/register-form', methods=["Get", "POST"])
 def registerForm():
     if request.method == "POST":
@@ -35,6 +37,7 @@ def registerForm():
             return redirect(url_for("login", errorMessage="fejl i login"))
     return redirect(url_for("home"))
 
+
 @app.route('/login-form', methods=["Get", "POST"])
 def loginForm():
     if request.method == "POST":
@@ -53,6 +56,7 @@ def loginForm():
             return redirect(url_for("login", errorMessage=error))
     return redirect(url_for("home"))
 
+
 @app.route('/buy-form', methods=["Get", "POST"])
 def buyForm():
     if request.method == "POST":
@@ -65,12 +69,18 @@ def buyForm():
 def home():
     session["numberOfItems"] = len(Sql.getCart())
     return render_template('home.html', trainData=Sql.GetTrainData())
+
+
 @app.route('/login')
 def login():
     return render_template('login.html', methods=["Get", "POST"])
+
+
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+
 @app.route('/cart')
 def cart():
     cartTrainData = []
@@ -84,12 +94,20 @@ def cart():
     trainPriceSum = 0
     for trainData in cartTrainData:
         trainPriceSum += trainData["price"]
-    return render_template('cart.html', cartTrainData = cartTrainData, trainPriceSum = trainPriceSum)
+    return render_template('cart.html', cartTrainData=cartTrainData, trainPriceSum=trainPriceSum)
+
+
 @app.route('/reviews')
 def reviews():
-    trainType = request.args.get('trainType')
-    print(trainType)
-    return render_template('home.html', trainData=Sql.GetTrainData())
+    trainID = request.args.get('trainID')
+    trainData = Sql.getTrainDataByID(trainID)
+    print(trainData)
+    train = {
+        "name": trainData[0][0],
+        "price": trainData[0][3],
+        "image": trainData[0][2],
+    }
+    return render_template('reviews.html', train=train)
 
 
 if __name__ == '__main__':

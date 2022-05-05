@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,20 +12,20 @@
     <script src="../static/js/searchBar.js" defer></script>
     <title>Home</title>
 </head>
+
 <body>
     {{ navbar() }}
     <div class="content">
-        <h2>Home</h2>
         <div class="train-frames">
             {% for train in trainData %}
             <form action="./buy-form" method="post" class="train-frame" id={{ train.name }}>
                 <h4>{{ train.name }}</h4>
-                <img id="train-image" src={{ "../static/images/trains/" + train.imagePath }} alt={{ train.imagePath }}>
-                <input type="hidden" name="trainID" value={{ train.ID }}>
-                <input type="hidden" name="scrolledY" value="0" class="scrolledY">
+                <img id="train-image" src="../static/images/trains/{{train.imagePath}}" alt="{{train.imagePath}}">
+                <input type="hidden" name="trainID" value="{{train.ID}}">
                 <input type="submit" value="Køb" id="buy-button">
-                <a href={{ "./reviews?trainType=" + train.name }}><input type="button" value="reviews"
-                        class="review-button"></a>
+                <a href="./reviews?trainID={{train.ID}}">
+                    <input type="button" value="reviews" class="review-button">
+                </a>
             </form>
             {% endfor %}
         </div>
