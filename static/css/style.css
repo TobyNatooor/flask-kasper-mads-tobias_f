@@ -1,3 +1,4 @@
+/***************************************** general */
 * {
     box-sizing: border-box;
     padding: 0;
@@ -6,13 +7,54 @@
     --navbar-height: 6rem;
 }
 
+body {
+    background-color: #EAE9E8;
+}
+
+/* button {
+    padding: 0.5rem;
+    background-color: #add8e6;
+    box-shadow: 3px 3px 0px 0px #777777;
+    margin-bottom: 1rem;
+    border-radius: 4px 4px 4px 4px;
+    border: none;
+} */
+
+button:hover {
+    background-color: #85cce4;
+    box-shadow: 3px 3px 0px 0px #555555;
+}
+
+h2 {
+    margin: auto;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.content {
+    background-color: #EAE9E8;
+    top: 20.5rem;
+    width: 100%;
+    display: inline-block;
+    margin: 0 auto;
+    padding-bottom: 5rem;
+}
+
+/***************************************** navbar */
 #navbar {
     width: 100%;
     height: var(--navbar-height);
     background-color: #132184;
     display: flex;
     align-items: center;
-    align-content: center;
 }
 
 #navbar * {
@@ -29,44 +71,38 @@
     margin-right: auto;
 }
 
-.content {
-    padding-top: 1rem;
-    background-color: #EAE9E8;
-    top: 20.5rem;
+#search-bar {
+    color: black;
+}
+
+/***************************************** footer */
+footer {
+    background-color: #132184;
+    height: 100px;
     width: 100%;
-    display: inline-block;
-    margin: 0 auto;
-    padding-bottom: 5rem;
+    color: white;
 }
 
-a {
-    text-decoration: none;
+/***************************************** home.html */
+#buy-button {
+    opacity: 0;
 }
 
-h2 {
-    margin: auto;
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: sans-serif;
+#train-image:hover~#buy-button, #buy-button:hover {
+    opacity: 1;
+    transition-duration: 0.2s;
+    cursor: pointer;
 }
 
-button {
-    padding: 0.5rem;
-    background-color: #add8e6;
-    box-shadow: 3px 3px 0px 0px #777777;
-    margin-bottom: 1rem;
-    border-radius: 4px 4px 4px 4px;
-    border: none;
+#buy-button:hover+#train-image {
+    box-shadow: rgb(0, 0, 0) 4px 4px 4px 4px;
+    filter: invert(21%)
 }
 
-button:hover {
-    background-color: #85cce4;
-    box-shadow: 3px 3px 0px 0px #555555;
+#home-image {
+    width: 100%;
 }
 
-/* home.html */
 .train-frames {
     display: flex;
     align-content: center;
@@ -82,7 +118,7 @@ button:hover {
     margin-right: 1rem;
 }
 
-/* login.html */
+/***************************************** login.html */
 .login-boks {
     width: max(30vw, 300px);
     margin: 3rem auto;
@@ -145,7 +181,6 @@ input[type=submit]:hover {
     margin: 0;
     padding: 1rem 0;
     color: white;
-
 }
 
 #login-header {
@@ -170,18 +205,18 @@ form input {
     margin-bottom: 1rem;
 }
 
-#submit, button {
+/* #submit, button {
     margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 #register-form {
     display: none;
 }
 
-/* cart.html */
+/***************************************** cart.html */
 .payment-details {
     position: absolute;
     background-color: #132184;
@@ -195,13 +230,20 @@ form input {
     align-content: center;
 }
 
-.payment-details button {
+.cart-remove-item {
+    display: flex;
+}
+
+/* .payment-details button {
     background-color: whitesmoke;
     border-radius: 1px;
     margin: auto;
     justify-content: center;
     align-items: center;
     display: flex;
+} */
+#payment-list {
+    margin-left: 1.5rem;
 }
 
 .cart-items {
@@ -214,15 +256,6 @@ form input {
     width: 10vw;
 }
 
-body {
-    background-image: url(../images/body-backgroound.jpg);
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position-y: 5.9rem;
-    background-color: #EAE9E8;
-    z-index: -2;
-}
-
 #train-image {
     border-radius: 10px;
     border: solid #132184 4px;
@@ -230,22 +263,6 @@ body {
 }
 
 #train-image:hover {
-    box-shadow: rgb(0, 0, 0) 4px 4px 4px 4px;
-    filter: invert(21%)
-}
-
-
-#buy-button {
-    opacity: 0;
-}
-
-#train-image:hover~#buy-button, #buy-button:hover {
-    opacity: 1;
-    transition-duration: 0.2s;
-    cursor: pointer;
-}
-
-#buy-button:hover+#train-image {
     box-shadow: rgb(0, 0, 0) 4px 4px 4px 4px;
     filter: invert(21%)
 }
@@ -288,21 +305,14 @@ body {
     z-index: 1;
 }
 
-footer {
-    background-color: #132184;
-    height: 100px;
-    width: 100%;
-    color: white;
-}
-
-a {
-    color: white;
-}
-
-#search-bar {
-    color: black;
-}
-
 .review-button {
     margin-top: 10rem;
 }
+
+#reviews {}
+
+.review {}
+
+.review-rating {}
+
+.review-content {}
