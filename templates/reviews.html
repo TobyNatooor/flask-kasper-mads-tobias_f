@@ -1,4 +1,4 @@
-{% from "_components.html" import navbar, footer %}
+{% from "_components.html" import navbar, footer, review %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +18,12 @@
         <h4>{{ train.name }}</h4>
         <img src="../static/images/trains/{{train.image}}" alt="{{train.image}}">
         <div id="reviews">
-            
+            <div class="review">
+                <h3>name</h3>
+                <hr>
+                <div class="review-rating"></div>
+                <div class="review-content"></div>
+            </div>
         </div>
     </div>
     {{ footer() }}

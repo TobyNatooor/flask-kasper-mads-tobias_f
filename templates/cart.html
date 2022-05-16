@@ -21,7 +21,11 @@
             <h2>Betalingsdetaljer</h2>
             <ul id="payment-list">
                 {% for cartTrain in cartTrainData %}
+                <form action="./remove-item" method="post" class="cart-remove-item">
+                    <button id="delete{{cartTrain.name}}">delete{{cartTrain.name}}</button>
                     <li>{{ cartTrain.name }}: {{ cartTrain.price }} kr.</li>
+                    <input type="hidden" name="trainID" value="{{cartTrain.ID}}">
+                </form>
                 {% endfor %}
                 <br>
                 <li>Total price: {{ trainPriceSum }} kr.</li>
@@ -32,7 +36,7 @@
         <div class="cart-items">
             <div>
                 {% for cartTrain in cartTrainData %}
-                    <img src={{ "../static/images/trains/" + cartTrain.image }} alt={{ cartTrain.image }} width="200">    
+                <img src={{ "../static/images/trains/" + cartTrain.image }} alt={{ cartTrain.image }} width="200">
                 {% endfor %}
             </div>
         </div>

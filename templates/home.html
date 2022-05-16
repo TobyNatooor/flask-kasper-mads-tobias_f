@@ -16,6 +16,7 @@
 <body>
     {{ navbar() }}
     <div class="content">
+        <img id="home-image" src="../static/images/body-backgroound.jpg" alt="home image">
         <div class="train-frames">
             {% for train in trainData %}
             <form action="./buy-form" method="post" class="train-frame" id={{ train.name }}>
