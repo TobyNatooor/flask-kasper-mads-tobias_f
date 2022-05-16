@@ -1,36 +1,40 @@
-from asyncio.windows_events import NULL
 import sqlite3
 import os
 import hashlib
-
-
-
 
 class SqlClass:
     def __init__(self, databasePath):
         self.databasePath = databasePath
 
-    def registerUser(self, username, tlf, email, password):
+    def executeSQL(self, command):
         connect = sqlite3.connect(self.databasePath)
+        connect.execute(command)
+        connect.commit()
+        connect.close()
+
+    def executeSQLReturn(self, command):
+        connect = sqlite3.connect(self.databasePath)
+        commandReturn = connect.execute(command)
+        connect.commit()
+        connect.close()
+        return commandReturn
+
+    def registerUser(self, username, tlf, email, password):
         salt = os.urandom(32)
         password_enc = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
         print(salt)
         print(password)
         print(password_enc)
-        connect.execute("""INSERT INTO Brugere (Navn, TLF, Email, Kode, Salt) VALUES (?,?,?,?,?);""", (username, tlf, email, password_enc, salt))
-        connect.commit()        
-        connect.close()
-
+        print(f'INSERT INTO Brugere (Navn, TLF, Email, Kode, Salt) VALUES ("{username}", {tlf}, "{email}", "{password_enc}", "{salt}");')
+        try:
+            self.executeSQL(f'INSERT INTO Brugere (Navn, TLF, Email, Kode, Salt) VALUES ("{username}", {tlf}, "{email}", "{password_enc}", "{salt}");')
+        except:
+            print("Error: Registering user failed")
+        
     def isCorrectPassword(self, username, enterdpassword):
-        connect = sqlite3.connect(self.databasePath)
-        password = connect.execute(f'SELECT Kode FROM Brugere WHERE Navn = "{username}"').fetchone()[0]
-        salt = connect.execute(f'SELECT salt FROM Brugere WHERE Navn = "{username}"').fetchone()[0]
+        password = self.executeSQL(f'SELECT Kode FROM Brugere WHERE Navn = "{username}"').fetchone()[0]
+        salt = self.executeSQL(f'SELECT salt FROM Brugere WHERE Navn = "{username}"').fetchone()[0]
         new_key = hashlib.pbkdf2_hmac('sha256', enterdpassword.encode('utf-8'), salt, 100000)
-        print(password)
-        print(salt)
-        print(new_key)
-        connect.commit()
-        connect.close()
         if password == new_key:
             return True
         else: 
@@ -51,10 +55,7 @@ class SqlClass:
         return trainData
 
     def addToCart(self, trainID):
-        connect = sqlite3.connect(self.databasePath)
-        connect.execute(f'INSERT INTO Køb (trainID) VALUES ({trainID})')
-        connect.commit()
-        connect.close()
+        self.executeSQL(f'INSERT INTO Køb (trainID) VALUES ({trainID})')
 
     def getTrainDataByID(self, trainID):
         connect = sqlite3.connect(self.databasePath)
@@ -69,3 +70,7 @@ class SqlClass:
         connect.commit()
         connect.close()
         return trainIDs
+    
+    def deleteCartItemById(self, id):
+        self.executeSQL(f'DELETE FROM Køb WHERE trainID={id};')
+        
