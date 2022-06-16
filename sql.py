@@ -6,34 +6,25 @@ class SqlClass:
     def __init__(self, databasePath):
         self.databasePath = databasePath
 
-    def executeSQL(self, command):
+    def executeSQL(self, command, parameters=None, fetchone=False):
         connect = sqlite3.connect(self.databasePath)
-        connect.execute(command)
+        cursor = connect.cursor()
+        if parameters != None:
+            commandReturn = cursor.execute(command, parameters).fetchone()[0] if fetchone else cursor.execute(command, parameters)
+        else:
+            commandReturn = cursor.execute(command).fetchone()[0] if fetchone else cursor.execute(command)
         connect.commit()
-        connect.close()
-
-    def executeSQLReturn(self, command):
-        connect = sqlite3.connect(self.databasePath)
-        commandReturn = connect.execute(command)
-        connect.commit()
-        connect.close()
+        cursor.close()
         return commandReturn
 
     def registerUser(self, username, tlf, email, password):
         salt = os.urandom(32)
         password_enc = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
-        print(salt)
-        print(password)
-        print(password_enc)
-        print(f'INSERT INTO Brugere (Navn, TLF, Email, Kode, Salt) VALUES ("{username}", {tlf}, "{email}", "{password_enc}", "{salt}");')
-        try:
-            self.executeSQL(f'INSERT INTO Brugere (Navn, TLF, Email, Kode, Salt) VALUES ("{username}", {tlf}, "{email}", "{password_enc}", "{salt}");')
-        except:
-            print("Error: Registering user failed")
+        self.executeSQL("""INSERT INTO Brugere (Navn, TLF, Email, Kode, Salt) VALUES (?,?,?,?,?);""", (username, tlf, email, password_enc, salt))
         
     def isCorrectPassword(self, username, enterdpassword):
-        password = self.executeSQL(f'SELECT Kode FROM Brugere WHERE Navn = "{username}"').fetchone()[0]
-        salt = self.executeSQL(f'SELECT salt FROM Brugere WHERE Navn = "{username}"').fetchone()[0]
+        password = self.executeSQL("SELECT Kode FROM Brugere WHERE Navn = ?", [username], fetchone=True)
+        salt = self.executeSQL(f"SELECT salt FROM Brugere WHERE Navn = ?", [username], fetchone=True)
         new_key = hashlib.pbkdf2_hmac('sha256', enterdpassword.encode('utf-8'), salt, 100000)
         if password == new_key:
             return True

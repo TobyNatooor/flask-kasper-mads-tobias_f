@@ -39,8 +39,7 @@ def loginForm():
         try:
             username = request.form.get("username")
             enteredPassword = request.form.get("password")
-            passwordIsCorrect = Sql.isCorrectPassword(
-                username, enteredPassword)
+            passwordIsCorrect = Sql.isCorrectPassword(username, enteredPassword)
             if passwordIsCorrect:
                 session["username"] = username
             else:
