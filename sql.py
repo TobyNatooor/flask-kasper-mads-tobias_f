@@ -65,3 +65,9 @@ class SqlClass:
         connect.execute(f'DELETE FROM Køb WHERE trainID={id};')
         connect.commit()
         connect.close()
+        
+    def addReview(self, name, content):
+        connect = sqlite3.connect(self.databasePath)
+        #connect.execute(f'INSERT INTO Køb (trainID) VALUES ({trainID})')
+        connect.commit()
+        connect.close()

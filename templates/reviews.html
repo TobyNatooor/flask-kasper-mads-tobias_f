@@ -15,13 +15,24 @@
 <body>
     {{ navbar() }}
     <div>
-        <h4>{{ train.name }}</h4>
-        <img src="../static/images/trains/{{train.image}}" alt="{{train.image}}">
+        <div class="flex">
+            <div>
+                <h4>{{ train.name }}</h4>
+                <img src="../static/images/trains/{{train.image}}" alt="{{train.image}}">
+            </div>
+            <div class="write-review">
+                <form action="./send-review-form" method="post">
+                    <textarea name="review-content" id="" cols="30" rows="10"></textarea>
+                    <br>
+                    <input type="button" value="Send anmeldelse">
+                </form>
+            </div>
+        </div>
         <div id="reviews">
             <div class="review">
                 <h3>name</h3>
                 <hr>
-                <div class="review-rating"></div>
+                <div class="review-name"></div>
                 <div class="review-content"></div>
             </div>
         </div>

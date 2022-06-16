@@ -113,5 +113,12 @@ def removeItem():
         Sql.deleteCartItemById(trainID)
     return render_template('cart.html', cartTrainData=getCartData(), trainPriceSum=getCartSum())
 
+
+@app.route('/remove-item', methods=["POST"])
+def removeItem():
+    
+    return render_template('review.html')
+
+
 if __name__ == '__main__':
     app.run()

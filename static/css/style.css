@@ -303,8 +303,16 @@ form input {
 
 #reviews {}
 
-.review {}
+.write-review {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+}
 
-.review-rating {}
+.review-name {}
 
 .review-content {}
+
+.flex {
+    display: flex;
+}
