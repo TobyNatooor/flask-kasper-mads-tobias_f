@@ -6,26 +6,21 @@ class SqlClass:
     def __init__(self, databasePath):
         self.databasePath = databasePath
 
-    def executeSQL(self, command, parameters=None, fetchone=False):
-        connect = sqlite3.connect(self.databasePath)
-        cursor = connect.cursor()
-        if parameters != None:
-            commandReturn = cursor.execute(command, parameters).fetchone()[0] if fetchone else cursor.execute(command, parameters)
-        else:
-            commandReturn = cursor.execute(command).fetchone()[0] if fetchone else cursor.execute(command)
-        connect.commit()
-        cursor.close()
-        return commandReturn
-
     def registerUser(self, username, tlf, email, password):
         salt = os.urandom(32)
         password_enc = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
-        self.executeSQL("""INSERT INTO Brugere (Navn, TLF, Email, Kode, Salt) VALUES (?,?,?,?,?);""", (username, tlf, email, password_enc, salt))
-        
+        connect = sqlite3.connect(self.databasePath)
+        connect.execute("""INSERT INTO Brugere (Navn, TLF, Email, Kode, Salt) VALUES (?,?,?,?,?);""", (username, tlf, email, password_enc, salt))
+        connect.commit()
+        connect.close()
+
     def isCorrectPassword(self, username, enterdpassword):
-        password = self.executeSQL("SELECT Kode FROM Brugere WHERE Navn = ?", [username], fetchone=True)
-        salt = self.executeSQL(f"SELECT salt FROM Brugere WHERE Navn = ?", [username], fetchone=True)
+        connect = sqlite3.connect(self.databasePath)
+        password = connect.execute("SELECT Kode FROM Brugere WHERE Navn = ?", [username], fetchone=True)
+        salt = connect.execute(f"SELECT salt FROM Brugere WHERE Navn = ?", [username], fetchone=True)
         new_key = hashlib.pbkdf2_hmac('sha256', enterdpassword.encode('utf-8'), salt, 100000)
+        connect.commit()
+        connect.close()
         if password == new_key:
             return True
         else: 
@@ -46,7 +41,10 @@ class SqlClass:
         return trainData
 
     def addToCart(self, trainID):
-        self.executeSQL(f'INSERT INTO Køb (trainID) VALUES ({trainID})')
+        connect = sqlite3.connect(self.databasePath)
+        connect.execute(f'INSERT INTO Køb (trainID) VALUES ({trainID})')
+        connect.commit()
+        connect.close()
 
     def getTrainDataByID(self, trainID):
         connect = sqlite3.connect(self.databasePath)
@@ -63,5 +61,7 @@ class SqlClass:
         return trainIDs
     
     def deleteCartItemById(self, id):
-        self.executeSQL(f'DELETE FROM Køb WHERE trainID={id};')
-        
+        connect = sqlite3.connect(self.databasePath)
+        connect.execute(f'DELETE FROM Køb WHERE trainID={id};')
+        connect.commit()
+        connect.close()

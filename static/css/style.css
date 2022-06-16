@@ -11,15 +11,6 @@ body {
     background-color: #EAE9E8;
 }
 
-/* button {
-    padding: 0.5rem;
-    background-color: #add8e6;
-    box-shadow: 3px 3px 0px 0px #777777;
-    margin-bottom: 1rem;
-    border-radius: 4px 4px 4px 4px;
-    border: none;
-} */
-
 button:hover {
     background-color: #85cce4;
     box-shadow: 3px 3px 0px 0px #555555;
@@ -81,6 +72,7 @@ footer {
     height: 100px;
     width: 100%;
     color: white;
+    margin-top: 2rem;
 }
 
 /***************************************** home.html */
