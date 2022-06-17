@@ -21,10 +21,11 @@
                 <img src="../static/images/trains/{{train.image}}" alt="{{train.image}}">
             </div>
             <div class="write-review">
+                <h4>Skriv din egen anmeldelse</h4>
                 <form action="./send-review-form" method="post">
                     <textarea name="review-content" id="review-content-id" cols="30" rows="10"></textarea>
                     <br>
-                    <input type="submit" value="Send anmeldelse">
+                    <input type="submit" value="Send" class="review-submit">
                     <input type="hidden" name="trainID" value="{{train.id}}">
                 </form>
             </div>

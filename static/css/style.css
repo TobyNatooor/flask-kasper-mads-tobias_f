@@ -39,6 +39,11 @@ a {
     padding-bottom: 5rem;
 }
 
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 /***************************************** navbar */
 #navbar {
     width: 100%;
@@ -108,6 +113,22 @@ footer {
     height: 300px;
     margin-left: 1rem;
     margin-right: 1rem;
+}
+
+.train-frame {
+    margin: 0.5rem;
+    margin-bottom: 10rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.train-frames input[type=submit] {
+    width: 8rem;
+    height: 2rem;
+    align-self: center;
+    margin-top: -10rem;
+    background-color: rgb(236, 143, 35);
+    z-index: 1;
 }
 
 /***************************************** login.html */
@@ -197,13 +218,6 @@ form input {
     margin-bottom: 1rem;
 }
 
-/* #submit, button {
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-
 #register-form {
     display: none;
 }
@@ -230,7 +244,7 @@ form input {
     margin-right: 2rem;
 }
 
- #payment-list {
+#payment-list {
     margin-left: 1.5rem;
 }
 
@@ -277,22 +291,6 @@ form input {
     font-family: sans-serif, Impact;
 }
 
-.train-frame {
-    margin: 0.5rem;
-    margin-bottom: 10rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.train-frames input[type=submit] {
-    width: 8rem;
-    height: 2rem;
-    align-self: center;
-    margin-top: -10rem;
-    background-color: rgb(236, 143, 35);
-    z-index: 1;
-}
-
 .review-button {
     margin-top: 8rem;
 }
@@ -307,14 +305,13 @@ form input {
 .write-review {
     display: flex;
     flex-direction: column;
-    margin: 2rem;
+    margin: 8rem 2rem 2rem 2rem;
 }
 
-.review-name {}
-
-.review-content {}
-
-.flex {
+.review-submit {
+    padding: 0.5rem 1rem;
+    margin: auto;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
 }
