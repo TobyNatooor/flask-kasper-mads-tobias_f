@@ -73,6 +73,7 @@ def buyForm():
     if request.method == "POST":
         trainID = request.form.get("trainID")
         Sql.addToCart(trainID)
+        session["numberOfItems"] = len(Sql.getCart())
     return redirect(url_for("home"))
 
 def getCartData():
@@ -97,6 +98,7 @@ def removeItem():
     if request.method == "POST":
         trainID = request.form.get("trainID")
         Sql.deleteCartItemById(trainID)
+        session["numberOfItems"] = len(Sql.getCart())
     return render_template('cart.html', cartTrainData=getCartData(), trainPriceSum=getCartSum())
 
 @app.route('/send-review-form', methods=["POST"])
