@@ -73,8 +73,22 @@ class SqlClass:
         connect.commit()
         connect.close()
         
-    def addReview(self, name, content):
+    def addReview(self, name, text, trainID):
         connect = sqlite3.connect(self.databasePath)
-        connect.execute(f'INSERT INTO Reviews (name, text) VALUES (?, ?)', (name, content))
+        connect.execute(f'INSERT INTO Reviews (name, text, trainID) VALUES (?, ?, ?)', (name, text, trainID))
         connect.commit()
         connect.close()
+        
+    def getTrainReviews(self, trainID):
+        connect = sqlite3.connect(self.databasePath)
+        trainReviews = connect.execute(f'SELECT * FROM Reviews WHERE trainID = {trainID}').fetchall()
+        trainReviewsDict = []
+        for trainReview in trainReviews:
+            trainReviewsDict.append({
+                "name": trainReview[1],
+                "text": trainReview[2],
+                "trainID": trainReview[3],
+            })
+        connect.commit()
+        connect.close()
+        return trainReviewsDict

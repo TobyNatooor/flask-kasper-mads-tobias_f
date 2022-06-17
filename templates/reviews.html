@@ -29,13 +29,15 @@
                 </form>
             </div>
         </div>
+        <hr>
+        <h4>Reviews</h4>
         <div id="reviews">
+            {% for review in reviews %}
             <div class="review">
-                <h3>name</h3>
-                <hr>
-                <div class="review-name"></div>
-                <div class="review-content"></div>
+                <h3>{{review.name}}</h3>
+                <div class="review-content">{{review.text}}</div>
             </div>
+            {% endfor %}
         </div>
     </div>
     {{ footer() }}

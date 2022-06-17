@@ -16,7 +16,7 @@ def home():
 @app.route('/reviews')
 def reviews():
     trainID = request.args.get('trainID')
-    return render_template('reviews.html', train=Sql.getTrainDataByID(trainID))
+    return render_template('reviews.html', train=Sql.getTrainDataByID(trainID), reviews=Sql.getTrainReviews(trainID))
 
 @app.route('/about')
 def about():
@@ -24,6 +24,8 @@ def about():
 
 @app.route('/login')
 def login():
+    if session["username"]:
+        session["username"] = ""
     return render_template('login.html', methods=["Get", "POST"])
 
 @app.route('/login-form', methods=["Get", "POST"])
@@ -106,10 +108,10 @@ def removeItem():
 def sendReviewForm(): 
     if request.method == "POST":
         name = session["username"]
-        content = request.form.get("review-content")
+        text = request.form.get("review-content")
         trainID = request.form.get("trainID")
-        Sql.addReview(name, content)
-    return render_template('reviews.html', train=Sql.getTrainDataByID(trainID))
+        Sql.addReview(name, text, trainID)
+    return render_template('reviews.html', train=Sql.getTrainDataByID(trainID), reviews=Sql.getTrainReviews(trainID))
 
 
 if __name__ == '__main__':
