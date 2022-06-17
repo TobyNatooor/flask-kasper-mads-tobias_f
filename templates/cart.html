@@ -22,9 +22,9 @@
             <ul id="payment-list">
                 {% for cartTrain in cartTrainData %}
                 <form action="./remove-item" method="post" class="cart-remove-item">
-                    <button id="delete{{cartTrain.name}}">delete{{cartTrain.name}}</button>
+                    <button class="cart-delete-button" id="delete{{cartTrain.name}}">slet{{cartTrain.name}}</button>
                     <li>{{ cartTrain.name }}: {{ cartTrain.price }} kr.</li>
-                    <input type="text" name="trainID" value="{{cartTrain.id}}">
+                    <input type="hidden" name="trainID" value="{{cartTrain.id}}">
                 </form>
                 {% endfor %}
                 <br>

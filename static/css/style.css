@@ -226,15 +226,11 @@ form input {
     display: flex;
 }
 
-/* .payment-details button {
-    background-color: whitesmoke;
-    border-radius: 1px;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-} */
-#payment-list {
+.cart-delete-button {
+    margin-right: 2rem;
+}
+
+ #payment-list {
     margin-left: 1.5rem;
 }
 
@@ -298,10 +294,15 @@ form input {
 }
 
 .review-button {
-    margin-top: 10rem;
+    margin-top: 8rem;
 }
 
-#reviews {}
+.review {
+    max-width: 33vw;
+    margin: 1rem;
+    padding: 0.5rem;
+    border: solid black 2px;
+}
 
 .write-review {
     display: flex;
@@ -315,4 +316,5 @@ form input {
 
 .flex {
     display: flex;
+    flex-wrap: wrap;
 }
