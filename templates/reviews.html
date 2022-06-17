@@ -22,9 +22,10 @@
             </div>
             <div class="write-review">
                 <form action="./send-review-form" method="post">
-                    <textarea name="review-content" id="" cols="30" rows="10"></textarea>
+                    <textarea name="review-content" id="review-content-id" cols="30" rows="10"></textarea>
                     <br>
-                    <input type="button" value="Send anmeldelse">
+                    <input type="submit" value="Send anmeldelse">
+                    <input type="hidden" name="trainID" value="{{train.id}}">
                 </form>
             </div>
         </div>

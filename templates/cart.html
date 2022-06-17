@@ -24,7 +24,7 @@
                 <form action="./remove-item" method="post" class="cart-remove-item">
                     <button id="delete{{cartTrain.name}}">delete{{cartTrain.name}}</button>
                     <li>{{ cartTrain.name }}: {{ cartTrain.price }} kr.</li>
-                    <input type="hidden" name="trainID" value="{{cartTrain.ID}}">
+                    <input type="text" name="trainID" value="{{cartTrain.id}}">
                 </form>
                 {% endfor %}
                 <br>

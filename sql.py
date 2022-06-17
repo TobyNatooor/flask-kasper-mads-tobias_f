@@ -16,8 +16,8 @@ class SqlClass:
 
     def isCorrectPassword(self, username, enterdpassword):
         connect = sqlite3.connect(self.databasePath)
-        password = connect.execute("SELECT Kode FROM Brugere WHERE Navn = ?", [username], fetchone=True)
-        salt = connect.execute(f"SELECT salt FROM Brugere WHERE Navn = ?", [username], fetchone=True)
+        password = connect.execute(f'SELECT Kode FROM Brugere WHERE Navn = "{username}"').fetchone()[0]
+        salt = connect.execute(f'SELECT salt FROM Brugere WHERE Navn = "{username}"').fetchone()[0]
         new_key = hashlib.pbkdf2_hmac('sha256', enterdpassword.encode('utf-8'), salt, 100000)
         connect.commit()
         connect.close()
@@ -34,7 +34,8 @@ class SqlClass:
             trainData.append({
                 "name": train[0],
                 "ID": train[1], 
-                "imagePath": train[2]
+                "imagePath": train[2],
+                
                 })
         connect.commit()
         connect.close()
@@ -49,9 +50,15 @@ class SqlClass:
     def getTrainDataByID(self, trainID):
         connect = sqlite3.connect(self.databasePath)
         trainData = connect.execute(f'SELECT * FROM Tog WHERE TID = {trainID}').fetchall()
+        trainDataDict = {
+            "name": trainData[0][0],
+            "price": trainData[0][3],
+            "image": trainData[0][2],
+            "id": trainData[0][1],
+        }
         connect.commit()
         connect.close()
-        return trainData
+        return trainDataDict
     
     def getCart(self):
         connect = sqlite3.connect(self.databasePath)
@@ -68,6 +75,6 @@ class SqlClass:
         
     def addReview(self, name, content):
         connect = sqlite3.connect(self.databasePath)
-        #connect.execute(f'INSERT INTO Køb (trainID) VALUES ({trainID})')
+        connect.execute(f'INSERT INTO Reviews (name, text) VALUES (?, ?)', (name, content))
         connect.commit()
         connect.close()

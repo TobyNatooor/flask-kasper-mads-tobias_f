@@ -16,14 +16,7 @@ def home():
 @app.route('/reviews')
 def reviews():
     trainID = request.args.get('trainID')
-    trainData = Sql.getTrainDataByID(trainID)
-    print(trainData)
-    train = {
-        "name": trainData[0][0],
-        "price": trainData[0][3],
-        "image": trainData[0][2],
-    }
-    return render_template('reviews.html', train=train)
+    return render_template('reviews.html', train=Sql.getTrainDataByID(trainID))
 
 @app.route('/about')
 def about():
@@ -40,6 +33,7 @@ def loginForm():
             username = request.form.get("username")
             enteredPassword = request.form.get("password")
             passwordIsCorrect = Sql.isCorrectPassword(username, enteredPassword)
+            print(username, enteredPassword)
             if passwordIsCorrect:
                 session["username"] = username
             else:
@@ -86,13 +80,7 @@ def buyForm():
 def getCartData():
     cartTrainData = []
     for id in Sql.getCart():
-        trainData = Sql.getTrainDataByID(id[0])
-        cartTrainData.append({
-            "name": trainData[0][0],
-            "price": trainData[0][3],
-            "image": trainData[0][2],
-            "ID": trainData[0][1],
-        })
+        cartTrainData.append(Sql.getTrainDataByID(id[0]))
     return cartTrainData
 
 def getCartSum():
@@ -114,10 +102,14 @@ def removeItem():
     return render_template('cart.html', cartTrainData=getCartData(), trainPriceSum=getCartSum())
 
 
-@app.route('/remove-item', methods=["POST"])
-def removeItem():
-    
-    return render_template('review.html')
+@app.route('/send-review-form', methods=["POST"])
+def sendReviewForm(): 
+    if request.method == "POST":
+        name = session["username"]
+        content = request.form.get("review-content")
+        trainID = request.form.get("trainID")
+        Sql.addReview(name, content)
+    return render_template('reviews.html', train=Sql.getTrainDataByID(trainID))
 
 
 if __name__ == '__main__':
