@@ -18,24 +18,20 @@ def reviews():
     trainID = request.args.get('trainID')
     return render_template('reviews.html', train=Sql.getTrainDataByID(trainID), reviews=Sql.getTrainReviews(trainID))
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
 @app.route('/login')
 def login():
-    if session["username"]:
+    if session.get("username"):
         session["username"] = ""
+        return redirect(url_for("home"))
     return render_template('login.html', methods=["Get", "POST"])
 
-@app.route('/login-form', methods=["Get", "POST"])
+@app.route('/login-form', methods=["POST"])
 def loginForm():
     if request.method == "POST":
         try:
             username = request.form.get("username")
             enteredPassword = request.form.get("password")
             passwordIsCorrect = Sql.isCorrectPassword(username, enteredPassword)
-            print(username, enteredPassword)
             if passwordIsCorrect:
                 session["username"] = username
             else:
@@ -46,23 +42,23 @@ def loginForm():
             return redirect(url_for("login", errorMessage=error))
     return redirect(url_for("home"))
 
-@app.route('/register-form', methods=["Get", "POST"])
+@app.route('/register-form', methods=["POST"])
 def registerForm():
     if request.method == "POST":
         try:
-            Username = request.form.get("username")
             tlf = request.form.get("tlf")
             email = request.form.get("email")
             password = request.form.get("password")
+            Username = request.form.get("username")
             error = ""
             if not len(Username) > 5:
                 error = "Username er forkert minimum 5 lang"
             if not tlf.isdecimal() == True:
-                error = "Dette er ikke et tlf nummer!"
+                error = "Telefonnummeret er ikke et tal"
             if not "@" in email and "." in email:
                 error = "Dette er ikke en gyldig email"
             if not len(password) > 5:
-                error = "Lav et bedre password #SkillIssue"
+                error = "Password er for kort"
 
             if error == "":
                 Sql.registerUser(Username, tlf, email, password)
@@ -72,7 +68,7 @@ def registerForm():
             return redirect(url_for("login", errorMessage="fejl i login"))
     return redirect(url_for("home"))
 
-@app.route('/buy-form', methods=["Get", "POST"])
+@app.route('/buy-form', methods=["POST"])
 def buyForm():
     if request.method == "POST":
         trainID = request.form.get("trainID")
@@ -103,7 +99,6 @@ def removeItem():
         Sql.deleteCartItemById(trainID)
     return render_template('cart.html', cartTrainData=getCartData(), trainPriceSum=getCartSum())
 
-
 @app.route('/send-review-form', methods=["POST"])
 def sendReviewForm(): 
     if request.method == "POST":
@@ -112,7 +107,6 @@ def sendReviewForm():
         trainID = request.form.get("trainID")
         Sql.addReview(name, text, trainID)
     return render_template('reviews.html', train=Sql.getTrainDataByID(trainID), reviews=Sql.getTrainReviews(trainID))
-
 
 if __name__ == '__main__':
     app.run()
